@@ -15,7 +15,7 @@ namespace LeetCode_submissions
             else if (i >= 1 || i <= 3)
                 return true;
             else
-                return (CanWinNim(i - 3));
+                return (CanWinNim(i - 3) );
 
         }
 
