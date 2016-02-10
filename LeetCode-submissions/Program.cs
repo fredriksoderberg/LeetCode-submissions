@@ -11,7 +11,7 @@ namespace LeetCode_submissions
         static void Main(string[] args)
         {
 
-            Console.Out.Write(Submissions.CanWinNim(4));
+            Console.Out.Write(Submissions.AddDigits(38));
             Console.In.ReadLine();
         }
     }
