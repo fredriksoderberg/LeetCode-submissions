@@ -134,7 +134,7 @@ namespace LeetCode_submissions
                 return true;
             else
                 return false;
-            
+
 
         }
 
@@ -151,22 +151,37 @@ namespace LeetCode_submissions
             return columnNumber;
         }
 
+        public static int MajorityElement(int[] nums)
+        {
+            System.Array.Sort(nums);
 
+            return nums[nums.Length / 2];
+        }
+
+        public static TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
+        {
+            if (root.val <== p)
+
+                if (root.left != null)
+                    LowestCommonAncestor(root.left, p, q);
+            if (root.right != null)
+                LowestCommonAncestor(root.right, p, q);
+
+        }
+
+        public class TreeNode
+        {
+            public int val;
+            public TreeNode left;
+            public TreeNode right;
+            public TreeNode(int x) { val = x; }
+        }
+
+        public class ListNode
+        {
+            public int val;
+            public ListNode next;
+            public ListNode(int x) { val = x; }
+
+        }
     }
-
-    public class TreeNode
-    {
-        public int val;
-        public TreeNode left;
-        public TreeNode right;
-        public TreeNode(int x) { val = x; }
-    }
-
-    public class ListNode
-    {
-        public int val;
-        public ListNode next;
-        public ListNode(int x) { val = x; }
-
-    }
-}
