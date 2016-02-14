@@ -11,7 +11,10 @@ namespace LeetCode_submissions
         static void Main(string[] args)
         {
 
-            Console.Out.Write(Submissions.AddDigits(38));
+            string s = "anagram";
+            string t = "nagaram";
+
+            Console.Out.Write(Submissions.IsAnagram(s,t));
             Console.In.ReadLine();
         }
     }

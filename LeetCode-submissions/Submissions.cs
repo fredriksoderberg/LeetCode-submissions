@@ -9,7 +9,7 @@ namespace LeetCode_submissions
     static class Submissions
     {
 
-        static public bool CanWinNim(int n)
+        public static bool CanWinNim(int n)
         {
             if (n % 4 == 0)
                 return false;
@@ -17,7 +17,7 @@ namespace LeetCode_submissions
                 return true;
         }
 
-        static public int AddDigits(int num)
+        public static int AddDigits(int num)
         {
             if (num < 10)
                 return num;
@@ -25,7 +25,7 @@ namespace LeetCode_submissions
                 return AddDigits(AddDigitsSubSum(num));
         }
 
-        static public int AddDigitsSubSum(int num)
+        public static int AddDigitsSubSum(int num)
         {
             if (num < 10)
                 return num;
@@ -33,7 +33,7 @@ namespace LeetCode_submissions
                 return AddDigitsSubSum(num % 10) + AddDigitsSubSum(num / 10);
         }
 
-        static public int MaxDepth(TreeNode root)
+        public static int MaxDepth(TreeNode root)
         {
             if (root == null)
                 return 0;
@@ -43,7 +43,7 @@ namespace LeetCode_submissions
                 return System.Math.Max(MaxDepth(root.right) + 1, MaxDepth(root.left) + 1);
         }
 
-        static public void DeleteNode(ListNode node)
+        public static void DeleteNode(ListNode node)
         {
             if (node.next == null)
                 return;
@@ -54,13 +54,13 @@ namespace LeetCode_submissions
             }
         }
 
-        static public TreeNode InvertTree(TreeNode root)
+        public static TreeNode InvertTree(TreeNode root)
         {
             InvertTreeFromTopNode(root);
             return root;
         }
 
-        static public void InvertTreeFromTopNode(TreeNode root)
+        public static void InvertTreeFromTopNode(TreeNode root)
         {
             if (root == null)
                 return;
@@ -73,30 +73,83 @@ namespace LeetCode_submissions
             InvertTreeFromTopNode(root.right);
         }
 
-        static public void MoveZeroes(int[] nums)
+        public static void MoveZeroes(int[] nums)
         {
 
-            int numberOfZeros = 0;
+            int temp = 0;
 
-            for (int i = 0, j = 0; j < nums.Length; i++, j++)
+            for (int i = 0; i < nums.Length; i++)
             {
                 if (nums[i] == 0)
                 {
-                    j++;
-                    numberOfZeros++;
+                    for (var j = i + 1; j < nums.Length; j++)
+                    {
+                        if (nums[j] != 0)
+                        {
+                            temp = nums[i];
+                            nums[i] = nums[j];
+                            nums[j] = temp;
+                            break;
+                        }
+
+                    }
                 }
-
-                nums[i] = nums[j];
-
-            }
-
-            for(int i = 1; i <= numberOfZeros; i++)
-            {
-                nums[nums.Length - i] = 0;
             }
         }
 
+        public static bool IsSameTree(TreeNode p, TreeNode q)
+        {
 
+            if (p == null && q == null)
+                return true;
+
+            if ((p == null && q != null) || (p != null && q == null))
+            {
+                return false;
+            }
+
+            if (p.val != q.val)
+                return false;
+
+            return (IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right));
+        }
+
+        public static bool IsAnagram(string s, string t)
+        {
+            if (s.Length != t.Length)
+                return false;
+
+            var sList = s.ToList<char>();
+            var tList = t.ToList<char>();
+
+            foreach (char c in sList)
+            {
+                if (tList.Contains(c))
+                {
+                    tList.Remove(c);
+                }
+            }
+
+            if (tList.Count == 0)
+                return true;
+            else
+                return false;
+            
+
+        }
+
+        public static int TitleToNumber(string s)
+        {
+            char[] charsInColumnName = s.ToCharArray();
+            int columnNumber = 0;
+
+            for (int i = 0; i < charsInColumnName.Length; i++)
+            {
+                columnNumber += (charsInColumnName[charsInColumnName.Length - 1 - i] - 64) * (int)System.Math.Pow(26, i);
+            }
+
+            return columnNumber;
+        }
 
 
     }
