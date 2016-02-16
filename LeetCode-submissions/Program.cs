@@ -11,10 +11,7 @@ namespace LeetCode_submissions
         static void Main(string[] args)
         {
 
-            string s = "anagram";
-            string t = "nagaram";
-
-            Console.Out.Write(Submissions.IsAnagram(s,t));
+            Console.Out.Write(Submissions.HammingWeight(4455511));
             Console.In.ReadLine();
         }
     }

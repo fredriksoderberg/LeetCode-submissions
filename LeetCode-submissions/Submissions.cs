@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -160,28 +160,99 @@ namespace LeetCode_submissions
 
         public static TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
         {
-            if (root.val <== p)
+            if (root == null)
+                return null;
 
-                if (root.left != null)
-                    LowestCommonAncestor(root.left, p, q);
-            if (root.right != null)
-                LowestCommonAncestor(root.right, p, q);
+            if (root.val >= p.val && root.val <= q.val)
+                return root;
+
+            if (root.val < p.val && root.val < q.val)
+                return LowestCommonAncestor(root.right, p, q);
+            if (root.val > p.val && root.val > q.val)
+                return LowestCommonAncestor(root.left, p, q);
+
+            return root;
+
 
         }
-
-        public class TreeNode
+        public static ListNode OddEvenList(ListNode head)
         {
-            public int val;
-            public TreeNode left;
-            public TreeNode right;
-            public TreeNode(int x) { val = x; }
+
+            if (head == null)
+                return null;
+
+            ListNode currentOddNode = head;
+            ListNode currentEvenNode = head.next;
+            ListNode evenNodeHead = head.next;
+
+            while (currentOddNode.next != null)
+            {
+                if (currentOddNode.next.next != null)
+                {
+                    currentOddNode.next = currentOddNode.next.next;
+                    currentOddNode = currentOddNode.next;
+                }
+                else
+                {
+                    currentOddNode.next = null;
+
+                }
+
+                if (currentEvenNode.next != null)
+                {
+                    if (currentEvenNode.next.next != null)
+                    {
+                        currentEvenNode.next = currentEvenNode.next.next;
+                        currentEvenNode = currentEvenNode.next;
+                    }
+                    else
+                    {
+                        currentEvenNode.next = null;
+                    }
+
+                }
+
+
+            }
+
+            currentOddNode.next = evenNodeHead;
+
+            return head;
         }
 
-        public class ListNode
+        public static int HammingWeight(uint n)
         {
-            public int val;
-            public ListNode next;
-            public ListNode(int x) { val = x; }
+            string binary = Convert.ToString(n, 2);
+            char[] binaryArray = binary.ToCharArray();
 
+            int count = 0;
+
+            foreach (char c in binaryArray)
+            {
+                if(c == '1')
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
+
     }
+
+    public class TreeNode
+    {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+        public TreeNode(int x) { val = x; }
+    }
+
+    public class ListNode
+    {
+        public int val;
+        public ListNode next;
+        public ListNode(int x) { val = x; }
+
+    }
+}
