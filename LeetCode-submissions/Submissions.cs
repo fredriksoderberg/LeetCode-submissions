@@ -229,7 +229,7 @@ namespace LeetCode_submissions
 
             foreach (char c in binaryArray)
             {
-                if(c == '1')
+                if (c == '1')
                 {
                     count++;
                 }
@@ -237,6 +237,188 @@ namespace LeetCode_submissions
 
             return count;
         }
+
+        public static int ClimbStairs(int n)
+        {
+            int sum = 0, a = 1, b = 2;
+            if (n == 1)
+            {
+                return 1;
+            }
+            else if (n == 2)
+            {
+                return 2;
+            }
+            else
+            {
+                for (int i = 3; i <= n; i++)
+                {
+                    sum = a + b;
+                    a = b;
+                    b = sum;
+                }
+            }
+
+            return sum;
+        }
+
+        public static ListNode DeleteDuplicates(ListNode head)
+        {
+            if (head == null)
+            {
+                return null;
+            }
+
+            ListNode currentNode = head;
+
+            while (currentNode.next != null)
+            {
+
+                if (currentNode.val == currentNode.next.val)
+                {
+                    currentNode.next = currentNode.next.next;
+                }
+                else
+                {
+                    currentNode = currentNode.next;
+                }
+
+
+            }
+
+            return head;
+        }
+
+        public static bool IsUgly(int num)
+        {
+
+            if (num <= 0)
+                return false;
+
+            if (num == 1)
+                return true;
+
+            while (num > 1)
+            {
+                if (num % 2 == 0)
+                {
+                    num = num / 2;
+                    continue;
+                }
+                if (num % 3 == 0)
+                {
+                    num = num / 3;
+                    continue;
+                }
+                if (num % 5 == 0)
+                {
+                    num = num / 5;
+                    continue;
+                }
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool IsHappy(int n)
+        {
+            char[] digits = n.ToString().ToCharArray();
+            double sum = int.MaxValue;
+
+            while (sum > 9)
+            {
+
+                sum = 0;
+
+                foreach (char c in digits)
+                {
+                    sum += Math.Pow((c - 48), 2);
+                }
+
+                digits = sum.ToString().ToCharArray();
+            }
+
+            if (sum == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public static bool IsPowerOfThree(int n)
+        {
+            if (n <= 0)
+            {
+                return false;
+            }
+
+            while (n % 3 == 0 || n == 1)
+            {
+                if (n == 1)
+                {
+                    return true;
+                }
+                n /= 3;
+            }
+            return false;
+        }
+
+        public static bool IsPowerOfTwo(int n)
+        {
+            if (n <= 0)
+            {
+                return false;
+            }
+
+            return (((long)int.MaxValue + 1) % n == 0) ? true : false;
+        }
+
+        public static ListNode MergeTwoLists(ListNode l1, ListNode l2)
+        {
+            ListNode current = l1;
+            ListNode head = current;
+            ListNode temp = null;
+
+
+            while (l1 != null || l2 != null)
+            {
+                if (l1 != null && l2 != null)
+                {
+                    if (l1.val <= l2.val)
+                    {
+                        current = l1;
+                        l1 = l1.next;
+                    }
+                    else
+                    {
+                        current = l2;
+                        l2 = l2.next;
+                    }
+                }
+                else if (l1 != null)
+                {
+                    current = l1;
+                    l1 = l1.next;
+                }
+                else
+                {
+                    current = l2;
+                    l2 = l2.next;
+                }
+
+                current = current.next;
+            }
+
+            return head;
+        }
+
+        
+
 
     }
 
@@ -254,5 +436,48 @@ namespace LeetCode_submissions
         public ListNode next;
         public ListNode(int x) { val = x; }
 
+    }
+
+    public class MyQueue
+    {
+
+        public Stack stack = new Stack();
+
+        // Push element x to the back of queue.
+        public void Push(int x)
+        {
+            Stack temp = new Stack();
+
+            while (stack.Count > 0)
+            {
+                temp.Push(stack.Pop());
+            }
+
+            temp.Push(x);
+
+            while (temp.Count > 0)
+            {
+                stack.Push(temp.Pop());
+            }
+
+        }
+
+        // Removes the element from front of queue.
+        public void Pop()
+        {
+            stack.Pop();
+        }
+
+        // Get the front element.
+        public int Peek()
+        {
+            return (int)stack.Peek();
+        }
+
+        // Return whether the queue is empty.
+        public bool Empty()
+        {
+            return (stack.Count > 0) ? false : true;
+        }
     }
 }
