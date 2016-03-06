@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -417,7 +418,72 @@ namespace LeetCode_submissions
             return head;
         }
 
-        
+        public static bool IsBalanced(TreeNode root)
+        {
+
+            if (root == null)
+            {
+                return true;
+            }
+
+            if (Math.Abs(MaxDepth(root.left) - MaxDepth(root.right)) > 1)
+            {
+                return false;
+            }
+
+
+            return IsBalanced(root.left) && IsBalanced(root.right);
+
+        }
+
+        public static bool IsSymmetric(TreeNode root)
+        {
+            if (root == null)
+            {
+                return true;
+            }
+
+            if(IsSameTree(InvertTree(root.left), root.right))
+            {
+                return true;
+            } 
+            else
+            {
+                return false;
+            }
+        }
+
+        public static int Rob(int[] nums)
+        {
+            if(nums.Length == 0)
+            {
+                return 0;
+            }
+            else if(nums.Length == 1)
+            {
+                return nums[0];
+            }
+            else if(nums.Length == 2)
+            {
+                return Math.Max(nums[0], nums[1]);
+            }
+
+            int[] max = new int[nums.Length];
+
+            max[0] = nums[0];
+            max[1] = Math.Max(nums[0], nums[1]);
+
+            for (int i = 2; i < nums.Length; i++)
+            {
+                max[i] = Math.Max(nums[i] + max[i - 2], max[i - 1]);
+            }
+
+            return max[nums.Length - 1];
+        }
+
+      
+
+
 
 
     }
@@ -438,7 +504,7 @@ namespace LeetCode_submissions
 
     }
 
-    public class MyQueue
+    public class Queue
     {
 
         public Stack stack = new Stack();
