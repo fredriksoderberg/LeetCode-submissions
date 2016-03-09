@@ -443,10 +443,10 @@ namespace LeetCode_submissions
                 return true;
             }
 
-            if(IsSameTree(InvertTree(root.left), root.right))
+            if (IsSameTree(InvertTree(root.left), root.right))
             {
                 return true;
-            } 
+            }
             else
             {
                 return false;
@@ -455,15 +455,15 @@ namespace LeetCode_submissions
 
         public static int Rob(int[] nums)
         {
-            if(nums.Length == 0)
+            if (nums.Length == 0)
             {
                 return 0;
             }
-            else if(nums.Length == 1)
+            else if (nums.Length == 1)
             {
                 return nums[0];
             }
-            else if(nums.Length == 2)
+            else if (nums.Length == 2)
             {
                 return Math.Max(nums[0], nums[1]);
             }
@@ -481,7 +481,24 @@ namespace LeetCode_submissions
             return max[nums.Length - 1];
         }
 
-      
+        public static int RemoveElement(int[] nums, int val)
+        {
+            int count = 0, temp = 0;
+
+            for(int i = 0; i < nums.Length - count; i++)
+            {
+                if(nums[i] == val)
+                {
+                    temp = nums[nums.Length - 1 - count];
+                    nums[nums.Length - 1 - count] = val / 2;
+                    nums[i] = temp;
+                }
+            }
+
+            return nums.Length - count;
+        }
+
+
 
 
 
