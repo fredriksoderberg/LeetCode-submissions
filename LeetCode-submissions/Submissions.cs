@@ -485,13 +485,18 @@ namespace LeetCode_submissions
         {
             int count = 0, temp = 0;
 
-            for(int i = 0; i < nums.Length - count; i++)
+            for (int i = 0; i < nums.Length - count; i++)
             {
-                if(nums[i] == val)
+                if (nums[i] == val)
                 {
+                    while(nums[nums.Length - 1 - count] == val && (nums.Length - 1 -count > i))
+                    {
+                        count++;
+                    }
                     temp = nums[nums.Length - 1 - count];
-                    nums[nums.Length - 1 - count] = val / 2;
+                    nums[nums.Length - 1 - count] = val;
                     nums[i] = temp;
+                    count++;
                 }
             }
 
