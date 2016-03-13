@@ -45,9 +45,9 @@ namespace LeetCode_submissions
             //t3.right = t6;
             //t6.right = t8;
 
-            int[] nums = new int[] { 1, 1, 2, 3, 4, 5 };
+            int[] nums = new int[] { 9, 9 };
 
-            Console.Write(Submissions.RemoveElement(nums, 1));
+            Console.Write(Submissions.PlusOne(nums));
           
             Console.In.ReadLine();
         }

@@ -392,7 +392,7 @@ namespace LeetCode_submissions
                 {
                     if (l1.val <= l2.val)
                     {
-                        current = l1;
+                        current.next = l1;
                         l1 = l1.next;
                     }
                     else
@@ -489,7 +489,7 @@ namespace LeetCode_submissions
             {
                 if (nums[i] == val)
                 {
-                    while(nums[nums.Length - 1 - count] == val && (nums.Length - 1 -count > i))
+                    while (nums[nums.Length - 1 - count] == val && (nums.Length - 1 - count > i))
                     {
                         count++;
                     }
@@ -503,7 +503,57 @@ namespace LeetCode_submissions
             return nums.Length - count;
         }
 
+        public static int RemoveDuplicates(int[] nums)
+        {
+            if (nums.Length == 0)
+            {
+                return 1;
+            }
 
+            int current = int.MinValue, count = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] != current)
+                {
+                    current = nums[i];
+                    nums[count] = current;
+                    count++;
+                }
+            }
+
+            return count;
+
+        }
+
+        public static int[] PlusOne(int[] digits)
+        {
+            for (int i = 0; i < digits.Length; i++)
+            {
+                if (digits[digits.Length - i - 1] != 9)
+                {
+                    digits[digits.Length - i - 1] += 1;
+                    break;
+                }
+                else
+                {
+                    if (i != digits.Length - 1)
+                    {
+                        digits[digits.Length - i - 1] = 0;
+                    }
+                    else
+                    {
+                        digits[digits.Length - i - 1] = 0;
+                        int[] extradigit = new int[digits.Length + 1];
+                        extradigit[0] = 1;
+                        Array.Clear(extradigit, 1, extradigit.Length - 1);
+                        return extradigit;
+                    }
+                }
+            }
+
+            return digits;
+
+        }
 
 
 
