@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace LeetCode_submissions
 {
@@ -555,6 +556,220 @@ namespace LeetCode_submissions
 
         }
 
+        public static IList<IList<int>> Generate(int numRows)
+        {
+            List<IList<int>> pascallist = new List<IList<int>>();
+            var currentrow = new List<int>();
+            var previousrow = new List<int>();
+
+            var one = new List<int>() { 1 };
+
+            var two = new List<int>() { 1, 1 };
+
+            if (numRows >= 1)
+            {
+                pascallist.Add(one);
+                previousrow.AddRange(one);
+            }
+
+            if (numRows >= 2)
+            {
+                pascallist.Add(two);
+                previousrow.Clear();
+                previousrow.AddRange(two);
+            }
+
+            if (numRows >= 3)
+            {
+                for (int curRow = 3; curRow <= numRows; curRow++)
+                {
+                    for (int i = 0; i < curRow; i++)
+                    {
+                        if (i == 0 || i == curRow - 1)
+                        {
+                            currentrow.Add(1);
+                        }
+                        else
+                        {
+                            currentrow.Add(previousrow[i] + previousrow[i - 1]);
+                        }
+                    }
+
+                    pascallist.Add(new List<int>(currentrow));
+                    previousrow.Clear();
+                    previousrow.AddRange(currentrow);
+                    currentrow.Clear();
+                }
+            }
+            return pascallist;
+        }
+
+        public static int TrailingZeroes(int n)
+        {
+            int rs = 0;
+            while (n != 0)
+            {
+                rs += (n / 5);
+                n /= 5;
+            }
+            return rs;
+        }
+
+        public static IList<int> GetRow(int rowIndex)
+        {
+            var currentrow = new List<int>();
+            var previousrow = new List<int>();
+            var one = new List<int>() { 1 };
+            var two = new List<int>() { 1, 1 };
+
+            if (rowIndex >= 0)
+            {
+                currentrow.AddRange(one);
+                previousrow.AddRange(one);
+            }
+
+            if (rowIndex >= 1)
+            {
+                currentrow.Clear();
+                currentrow.AddRange(two);
+                previousrow.Clear();
+                previousrow.AddRange(two);
+            }
+
+            if (rowIndex >= 2)
+            {
+                for (int curRow = 2; curRow <= rowIndex; curRow++)
+                {
+                    currentrow.Clear();
+
+                    for (int i = 0; i <= curRow; i++)
+                    {
+                        if (i == 0 || i == curRow)
+                        {
+                            currentrow.Add(1);
+                        }
+                        else
+                        {
+                            currentrow.Add(previousrow[i] + previousrow[i - 1]);
+                        }
+                    }
+
+                    previousrow.Clear();
+                    previousrow.AddRange(currentrow);
+
+                }
+            }
+            return currentrow;
+        }
+
+        public static bool IsPalindrome(int x)
+        {
+            char[] digits = x.ToString().ToCharArray();
+
+            for (int i = 0; i < digits.Length / 2; i++)
+            {
+                if (digits[i] != digits[digits.Length - 1 - i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public static bool HasPathSum(TreeNode root, int sum)
+        {
+            if (root == null)
+            {
+                return false;
+            }
+
+            if (sum - root.val == 0 && root.left == null && root.right == null)
+            {
+                return true;
+            }
+
+            if (sum - root.val != 0 && root.left == null && root.right == null)
+            {
+                return false;
+            }
+
+            return (root.left != null) ? HasPathSum(root.left, sum - root.val) : false || (root.right != null) ? HasPathSum(root.right, sum - root.val) : false;
+        }
+
+        public static int MinDepth(TreeNode root)
+        {
+            if (root == null)
+            {
+                return 0;
+            }
+            else if (root.left == null && root.right == null)
+            {
+                return 1;
+            }
+            else
+            {
+                return Math.Min(root.left != null ? int.MaxValue + MinDepth(root.left) : int.MaxValue, root.right != null ? 1 + MinDepth(root.right) : int.MaxValue);
+            }
+        }
+
+        public static ListNode GetIntersectionNode(ListNode headA, ListNode headB)
+        {
+            ListNode curA = headA;
+            ListNode curB = headB;
+            int lengthA = 0, lengthB = 0;
+
+            if(headA == null || headB == null)
+            {
+                return null;
+            }
+
+            while(curA != null)
+            {
+                lengthA++;
+                curA = curA.next;
+            }
+
+            while(curB != null)
+            {
+                lengthB++;
+                curB = curB.next;
+            }
+
+            curA = headA;
+            curB = headB;
+
+            if(lengthA > lengthB)
+            {
+                for(int i = 1; i <= lengthA - lengthB; i++)
+                {
+                    curA = curA.next;
+                }
+            }
+            else if(lengthB > lengthA)
+            {
+                for (int i = 1; i <= lengthB - lengthA; i++)
+                {
+                    curB = curB.next;
+                }
+            }
+
+            while(curA != null || curB != null)
+            {
+                if(curA == curB)
+                {
+                    return curA;
+                }
+                else
+                {
+                    curA = curA.next;
+                    curB = curB.next;
+                }
+            }
+
+            return null;
+
+        }
+
 
 
 
@@ -582,7 +797,7 @@ namespace LeetCode_submissions
         public Stack stack = new Stack();
 
         // Push element x to the back of queue.
-        public void Push(int x)
+        public void Enqueue(int x)
         {
             Stack temp = new Stack();
 
@@ -616,6 +831,43 @@ namespace LeetCode_submissions
         public bool Empty()
         {
             return (stack.Count > 0) ? false : true;
+        }
+    }
+
+    public class Stack
+    {
+
+        Queue<int> queue = new Queue<int>();
+        // Push element x onto stack.
+        public void Push(int x)
+        {
+            int temp = 0;
+
+            queue.Enqueue(x);
+
+            for (int i = 1; i < queue.Count; i++)
+            {
+                temp = queue.Dequeue();
+                queue.Enqueue(temp);
+            }
+        }
+
+        // Removes the element on top of the stack.
+        public void Pop()
+        {
+            queue.Dequeue();
+        }
+
+        // Get the top element.
+        public int Top()
+        {
+            return queue.Peek();
+        }
+
+        // Return whether the stack is empty.
+        public bool Empty()
+        {
+            return queue.Count == 0 ? true : false;
         }
     }
 }
